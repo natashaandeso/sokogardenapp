@@ -5,6 +5,7 @@ import Addproducts from './components/Addproducts';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
 import Notfound from './components/Notfound';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
