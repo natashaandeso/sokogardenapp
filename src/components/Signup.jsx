@@ -46,6 +46,10 @@ const Signup = () => {
       setEmail("");
       setPassword("");
       setPhone("");
+
+      setTimeout(() => {
+    setSuccess("");
+  }, 5000);
     }
     catch(error){
       // set the loading back to default
@@ -67,6 +71,7 @@ const Signup = () => {
           <h4 className="text-danger">{error}</h4>
 
           <form onSubmit={handleSubmit}>
+
             <input type="text"
             placeholder='Enter the username'
             className='form-control'
