@@ -49,6 +49,7 @@ const Addproducts = () => {
       setProductCost("");
       setProductPhoto("");
 
+      // e.target.reset()
       if (fileInputRef.current){
         fileInputRef.current.value ="";
       }
