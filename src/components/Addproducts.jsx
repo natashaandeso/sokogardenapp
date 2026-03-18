@@ -21,6 +21,15 @@ const Addproducts = () => {
     // prevent the site from reloading
     e.preventDefault()
 
+    // get token from local srorage
+    const token = localStorage.getItem("token");
+    
+    // if no token block request
+     if (!token) {
+      setError("Unauthorized! Please login first.");
+      return;
+    }
+
     // set loading hook with a message (activate it)
     setLoading(true)
 
@@ -35,7 +44,14 @@ const Addproducts = () => {
       formdata.append("product_photo", product_photo);
 
       // interact with axios to help you use the method post
-      const response = await axios.post("https://tashaandeso.alwaysdata.net/api/add_product", formdata)
+      const response = await axios.post("https://tashaandeso.alwaysdata.net/api/add_product", formdata,
+        {
+          headers:{
+            Authorization: 'Bearer ${token}',
+            "Content-Type":"multipart/form-data"
+          }
+        }
+      )
 
       // set the loading hook back to ddefault
       setLoading(false)
@@ -61,10 +77,15 @@ const Addproducts = () => {
       // set loading hookback to default
       setLoading(false)
 
-      // update the setError witha message
-      setError(error.message)
-
+      // handle unautjorized errors
+       if (error.response && error.response.status === 401) {
+        setError("Session expired. Please login again.");
+        localStorage.removeItem("token"); // logout user
+      } else {
+        setError(error.message);
+      }
     }
+
 
   }
 
